@@ -2,6 +2,13 @@ import { useState } from 'react';
 
 const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
+const CITIES = [
+  'New York', 'London', 'Tokyo', 'Paris', 'Sydney',
+  'Dubai', 'Mumbai', 'Toronto', 'Berlin', 'Singapore',
+  'Los Angeles', 'Chicago', 'Seoul', 'Shanghai', 'Mexico City',
+  'São Paulo', 'Cairo', 'Istanbul', 'Moscow', 'Bangkok',
+];
+
 interface WeatherData {
   name: string;
   sys: { country: string };
@@ -16,14 +23,15 @@ export default function WeatherPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const fetchWeather = async () => {
-    if (!city.trim()) return;
+  const fetchWeather = async (selectedCity?: string) => {
+    const target = selectedCity || city;
+    if (!target.trim()) return;
     setLoading(true);
     setError('');
     setWeather(null);
     try {
       const res = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(target)}&appid=${API_KEY}&units=metric`
       );
       if (!res.ok) throw new Error('City not found');
       const data: WeatherData = await res.json();
@@ -35,21 +43,44 @@ export default function WeatherPage() {
     }
   };
 
+  const handleDropdown = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selected = e.target.value;
+    if (selected) {
+      setCity(selected);
+      fetchWeather(selected);
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-red-500 px-4">
       <h1 className="text-yellow-400 text-4xl font-bold mb-8">Weather Forecast</h1>
 
+      {/* Dropdown */}
+      <div className="w-full max-w-md mb-4">
+        <select
+          onChange={handleDropdown}
+          defaultValue=""
+          className="w-full px-4 py-3 rounded-xl text-black text-lg outline-none bg-white"
+        >
+          <option value="" disabled>Select a city...</option>
+          {CITIES.map((c) => (
+            <option key={c} value={c}>{c}</option>
+          ))}
+        </select>
+      </div>
+
+      {/* Manual search */}
       <div className="flex gap-2 mb-8 w-full max-w-md">
         <input
           type="text"
           value={city}
           onChange={(e) => setCity(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && fetchWeather()}
-          placeholder="Enter city name..."
+          placeholder="Or type a city name..."
           className="flex-1 px-4 py-3 rounded-xl text-black text-lg outline-none"
         />
         <button
-          onClick={fetchWeather}
+          onClick={() => fetchWeather()}
           className="bg-white text-red-500 font-bold px-6 py-3 rounded-xl hover:bg-red-100 transition"
         >
           Search
