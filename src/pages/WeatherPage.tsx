@@ -52,15 +52,15 @@ export default function WeatherPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-red-500 px-4">
-      <h1 className="text-yellow-400 text-4xl font-bold mb-8">Weather Forecast</h1>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-white px-4">
+      <h1 className="text-blue-600 text-4xl font-bold mb-8">Weather Forecast</h1>
 
       {/* Dropdown */}
       <div className="w-full max-w-md mb-4">
         <select
           onChange={handleDropdown}
           defaultValue=""
-          className="w-full px-4 py-3 rounded-xl text-black text-lg outline-none bg-white"
+          className="w-full px-4 py-3 rounded-xl text-blue-600 text-lg outline-none bg-blue-50 border border-blue-200"
         >
           <option value="" disabled>Select a city...</option>
           {CITIES.map((c) => (
@@ -77,22 +77,22 @@ export default function WeatherPage() {
           onChange={(e) => setCity(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && fetchWeather()}
           placeholder="Or type a city name..."
-          className="flex-1 px-4 py-3 rounded-xl text-black text-lg outline-none"
+          className="flex-1 px-4 py-3 rounded-xl text-blue-600 text-lg outline-none border border-blue-200 bg-blue-50"
         />
         <button
           onClick={() => fetchWeather()}
-          className="bg-white text-red-500 font-bold px-6 py-3 rounded-xl hover:bg-red-100 transition"
+          className="bg-blue-600 text-white font-bold px-6 py-3 rounded-xl hover:bg-blue-700 transition"
         >
           Search
         </button>
       </div>
 
-      {loading && <p className="text-yellow-400 text-xl">Fetching weather...</p>}
-      {error && <p className="text-yellow-200 text-lg">{error}</p>}
+      {loading && <p className="text-blue-600 text-xl">Fetching weather...</p>}
+      {error && <p className="text-blue-400 text-lg">{error}</p>}
 
       {weather && (
-        <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md text-center">
-          <h2 className="text-3xl font-bold text-yellow-500">
+        <div className="bg-blue-50 rounded-2xl shadow-2xl p-8 w-full max-w-md text-center border border-blue-200">
+          <h2 className="text-3xl font-bold text-blue-700">
             {weather.name}, {weather.sys.country}
           </h2>
           <img
@@ -100,19 +100,19 @@ export default function WeatherPage() {
             alt={weather.weather[0].description}
             className="mx-auto w-24 h-24"
           />
-          <p className="text-6xl font-extrabold text-yellow-500">{Math.round(weather.main.temp)}°C</p>
-          <p className="text-yellow-600 capitalize text-xl mt-1">{weather.weather[0].description}</p>
-          <div className="mt-6 grid grid-cols-3 gap-4 text-yellow-700">
-            <div className="bg-red-50 rounded-xl p-3">
-              <p className="text-sm text-yellow-500">Feels Like</p>
+          <p className="text-6xl font-extrabold text-blue-700">{Math.round(weather.main.temp)}°C</p>
+          <p className="text-blue-500 capitalize text-xl mt-1">{weather.weather[0].description}</p>
+          <div className="mt-6 grid grid-cols-3 gap-4 text-blue-700">
+            <div className="bg-white rounded-xl p-3 border border-blue-100">
+              <p className="text-sm text-blue-500">Feels Like</p>
               <p className="text-lg font-semibold">{Math.round(weather.main.feels_like)}°C</p>
             </div>
-            <div className="bg-red-50 rounded-xl p-3">
-              <p className="text-sm text-yellow-500">Humidity</p>
+            <div className="bg-white rounded-xl p-3 border border-blue-100">
+              <p className="text-sm text-blue-500">Humidity</p>
               <p className="text-lg font-semibold">{weather.main.humidity}%</p>
             </div>
-            <div className="bg-red-50 rounded-xl p-3">
-              <p className="text-sm text-yellow-500">Wind</p>
+            <div className="bg-white rounded-xl p-3 border border-blue-100">
+              <p className="text-sm text-blue-500">Wind</p>
               <p className="text-lg font-semibold">{weather.wind.speed} m/s</p>
             </div>
           </div>
