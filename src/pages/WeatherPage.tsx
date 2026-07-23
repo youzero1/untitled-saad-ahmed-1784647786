@@ -37,7 +37,7 @@ export default function WeatherPage() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-red-500 px-4">
-      <h1 className="text-white text-4xl font-bold mb-8">Weather Forecast</h1>
+      <h1 className="text-yellow-400 text-4xl font-bold mb-8">Weather Forecast</h1>
 
       <div className="flex gap-2 mb-8 w-full max-w-md">
         <input
@@ -56,12 +56,12 @@ export default function WeatherPage() {
         </button>
       </div>
 
-      {loading && <p className="text-white text-xl">Fetching weather...</p>}
+      {loading && <p className="text-yellow-400 text-xl">Fetching weather...</p>}
       {error && <p className="text-yellow-200 text-lg">{error}</p>}
 
       {weather && (
         <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md text-center">
-          <h2 className="text-3xl font-bold text-gray-800">
+          <h2 className="text-3xl font-bold text-yellow-500">
             {weather.name}, {weather.sys.country}
           </h2>
           <img
@@ -69,19 +69,19 @@ export default function WeatherPage() {
             alt={weather.weather[0].description}
             className="mx-auto w-24 h-24"
           />
-          <p className="text-6xl font-extrabold text-red-500">{Math.round(weather.main.temp)}°C</p>
-          <p className="text-gray-500 capitalize text-xl mt-1">{weather.weather[0].description}</p>
-          <div className="mt-6 grid grid-cols-3 gap-4 text-gray-700">
+          <p className="text-6xl font-extrabold text-yellow-500">{Math.round(weather.main.temp)}°C</p>
+          <p className="text-yellow-600 capitalize text-xl mt-1">{weather.weather[0].description}</p>
+          <div className="mt-6 grid grid-cols-3 gap-4 text-yellow-700">
             <div className="bg-red-50 rounded-xl p-3">
-              <p className="text-sm text-gray-400">Feels Like</p>
+              <p className="text-sm text-yellow-500">Feels Like</p>
               <p className="text-lg font-semibold">{Math.round(weather.main.feels_like)}°C</p>
             </div>
             <div className="bg-red-50 rounded-xl p-3">
-              <p className="text-sm text-gray-400">Humidity</p>
+              <p className="text-sm text-yellow-500">Humidity</p>
               <p className="text-lg font-semibold">{weather.main.humidity}%</p>
             </div>
             <div className="bg-red-50 rounded-xl p-3">
-              <p className="text-sm text-gray-400">Wind</p>
+              <p className="text-sm text-yellow-500">Wind</p>
               <p className="text-lg font-semibold">{weather.wind.speed} m/s</p>
             </div>
           </div>
